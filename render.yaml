@@ -1,0 +1,27 @@
+# Blueprint de déploiement 1-clic pour Render.com
+# Documentation : https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: visabot-automation
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: starter # Le plan starter (512MB-1GB) est recommandé pour faire tourner Chrome sans crash mémoire
+    region: frankfurt # Idéal pour visaonweb.diplomatie.be (Belgique / Europe)
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
+      - key: PUPPETEER_EXECUTABLE_PATH
+        value: /usr/bin/google-chrome-stable
+      - key: GEMINI_API_KEY
+        sync: false # À coller dans l'interface Render
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false

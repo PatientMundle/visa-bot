@@ -1,0 +1,32 @@
+services:
+  visa-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: visa-sniper-bot
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY:-secret-visa-bot-32chars-encryption-key}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - SQL_HOST=${SQL_HOST}
+      - SQL_DB_NAME=${SQL_DB_NAME}
+      - SQL_USER=${SQL_USER}
+      - SQL_PASSWORD=${SQL_PASSWORD}
+    volumes:
+      - bot_data:/app/data
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
+        reservations:
+          memory: 512M
+
+volumes:
+  bot_data:
