@@ -2065,3 +2065,4 @@ export class VisaBot {
     }
   }
 }
+`nexport function startBot() { console.log("Bot service initialized"); }
